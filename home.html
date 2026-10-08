@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sahyadri College of Engineering & Management | Dept. of CSE</title>
+<style>
+  :root{
+    --ink:#0b0f14;
+    --panel:#101720;
+    --line:#1e2a35;
+    --text:#dbe7ef;
+    --muted:#7d93a3;
+    --circuit:#39ff9d;
+    --circuit-dim:#1f7a52;
+    --amber:#ffb454;
+    --font-display:'Space Mono', 'Courier New', monospace;
+    --font-body:'Inter', 'Segoe UI', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;800&display=swap');
+
+  body{
+    background:var(--ink);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  .circuit-bg{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    opacity:0.18;
+    pointer-events:none;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:40px 40px;
+  }
+
+  header.banner{
+    position:relative;
+    z-index:1;
+    padding:56px 8vw 64px;
+    border-bottom:1px solid var(--line);
+    background:
+      radial-gradient(circle at 85% 20%, rgba(57,255,157,0.10), transparent 45%),
+      radial-gradient(circle at 10% 80%, rgba(255,180,84,0.08), transparent 40%);
+  }
+
+  .eyebrow{
+    font-family:var(--font-display);
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    font-size:11px;
+    color:var(--circuit);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:8px;height:8px;
+    background:var(--circuit);
+    box-shadow:0 0 10px var(--circuit);
+    border-radius:1px;
+  }
+
+  .college-name{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:clamp(28px, 4.4vw, 58px);
+    letter-spacing:-0.01em;
+    line-height:1.08;
+    color:#fff;
+    text-transform:uppercase;
+    max-width:14ch;
+  }
+  .college-name span{ color:var(--circuit); }
+
+  .tagline{
+    margin-top:18px;
+    color:var(--muted);
+    font-size:15px;
+    max-width:52ch;
+    border-left:2px solid var(--circuit-dim);
+    padding-left:14px;
+  }
+
+  .dept-chip{
+    display:inline-flex;
+    margin-top:34px;
+    align-items:center;
+    gap:10px;
+    padding:10px 18px;
+    border:1px solid var(--circuit-dim);
+    border-radius:999px;
+    font-family:var(--font-display);
+    font-size:13px;
+    color:var(--circuit);
+    background:rgba(57,255,157,0.05);
+  }
+  .dept-chip::before{ content:"</>"; }
+
+  main{ position:relative; z-index:1; }
+
+  section{
+    padding:72px 8vw;
+    border-bottom:1px solid var(--line);
+  }
+
+  .section-label{
+    font-family:var(--font-display);
+    font-size:12px;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:var(--amber);
+    margin-bottom:14px;
+  }
+  h2.section-title{
+    font-family:var(--font-display);
+    font-size:clamp(22px,3vw,34px);
+    color:#fff;
+    margin-bottom:26px;
+    text-transform:uppercase;
+  }
+
+  .grid-3{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+    margin-top:10px;
+  }
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:26px;
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .card:hover{
+    transform:translateY(-4px);
+    border-color:var(--circuit-dim);
+  }
+  .card .tag{
+    font-family:var(--font-display);
+    font-size:11px;
+    color:var(--circuit);
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+  }
+  .card h3{
+    margin:12px 0 8px;
+    font-size:18px;
+    color:#fff;
+  }
+  .card p{ color:var(--muted); font-size:14px; }
+
+  .stats-row{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:24px;
+    margin-top:40px;
+  }
+  .stat{
+    text-align:left;
+    border-top:1px solid var(--line);
+    padding-top:16px;
+  }
+  .stat .num{
+    font-family:var(--font-display);
+    font-size:clamp(28px,3vw,42px);
+    color:var(--circuit);
+  }
+  .stat .label{
+    color:var(--muted);
+    font-size:13px;
+    margin-top:4px;
+  }
+
+  .about-flex{
+    display:flex;
+    gap:48px;
+    flex-wrap:wrap;
+    align-items:flex-start;
+  }
+  .about-flex p{
+    flex:1;
+    min-width:280px;
+    color:var(--muted);
+    font-size:15px;
+  }
+  .terminal{
+    flex:1;
+    min-width:280px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .terminal .bar{
+    display:flex;
+    gap:6px;
+    padding:10px 14px;
+    background:#0a0e13;
+    border-bottom:1px solid var(--line);
+  }
+  .terminal .dot{ width:10px;height:10px;border-radius:50%; }
+  .terminal .r{background:#ff5f56;} .terminal .y{background:#ffbd2e;} .terminal .g{background:#27c93f;}
+  .terminal .body{
+    padding:20px;
+    font-family:var(--font-display);
+    font-size:13px;
+    color:var(--circuit);
+    line-height:1.9;
+  }
+  .terminal .body .muted{ color:var(--muted); }
+  .terminal .body .amber{ color:var(--amber); }
+
+  footer{
+    position:relative;
+    z-index:1;
+    padding:60px 8vw;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    flex-wrap:wrap;
+    gap:24px;
+  }
+  .signoff{
+    font-family:var(--font-display);
+    font-size:12px;
+    color:var(--muted);
+    letter-spacing:0.1em;
+  }
+  .signoff .name{
+    font-size:20px;
+    color:#fff;
+    display:block;
+    margin-bottom:6px;
+  }
+  .signoff .name span{ color:var(--circuit); }
+  .badge{
+    font-family:var(--font-display);
+    font-size:11px;
+    color:var(--ink);
+    background:var(--circuit);
+    padding:6px 12px;
+    border-radius:6px;
+    margin-right:8px;
+  }
+
+  @media (max-width:800px){
+    .grid-3{grid-template-columns:1fr;}
+    .stats-row{grid-template-columns:repeat(2,1fr);}
+    footer{flex-direction:column; align-items:flex-start;}
+  }
+
+  a{color:inherit;}
+  :focus-visible{ outline:2px solid var(--circuit); outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<div class="circuit-bg"></div>
+
+<header class="banner">
+  <div class="eyebrow">Est. Excellence &middot; Autonomous Institution</div>
+  <h1 class="college-name">SAHYADRI <span>COLLEGE</span> OF ENGINEERING &amp; MANAGEMENT</h1>
+  <p class="tagline">Where circuits meet curiosity — engineering minds that build, break, and rebuild the future.</p>
+  <div class="dept-chip">DEPARTMENT OF COMPUTER SCIENCE &amp; ENGINEERING</div>
+</header>
+
+<main>
+
+  <section id="about">
+    <div class="section-label">01 — About the Department</div>
+    <h2 class="section-title">Where Algorithms Become Impact</h2>
+    <div class="about-flex">
+      <p>
+        The Department of Computer Science &amp; Engineering at Sahyadri College of Engineering &amp; Management
+        is built around one belief: the best engineers learn by shipping. From data structures to
+        distributed systems, from machine learning to full-stack builds, our labs run on the same energy
+        as a late-night hackathon — curious, collaborative, and a little caffeinated.
+      </p>
+      <div class="terminal">
+        <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+        <div class="body">
+          <div><span class="muted">$</span> whoami</div>
+          <div class="amber">department-of-cse</div>
+          <div style="margin-top:10px"><span class="muted">$</span> cat focus.txt</div>
+          <div>AI/ML &middot; Systems &middot; Full-Stack &middot; Data Engineering</div>
+          <div style="margin-top:10px"><span class="muted">$</span> status</div>
+          <div>Compiling the next generation of engineers... <span class="amber">done ✓</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat"><div class="num">8.15+</div><div class="label">Avg. CGPA of Top Cohort</div></div>
+      <div class="stat"><div class="num">40+</div><div class="label">Recruiting Partners</div></div>
+      <div class="stat"><div class="num">15+</div><div class="label">Research-Active Labs</div></div>
+      <div class="stat"><div class="num">100%</div><div class="label">Project-Based Learning</div></div>
+    </div>
+  </section>
+
+  <section id="highlights">
+    <div class="section-label">02 — What Sets Us Apart</div>
+    <h2 class="section-title">Built for Builders</h2>
+    <div class="grid-3">
+      <div class="card">
+        <div class="tag">Labs</div>
+        <h3>AI &amp; Data Engineering Lab</h3>
+        <p>Hands-on work with real datasets, model deployment, and applied ML — not just textbook theory.</p>
+      </div>
+      <div class="card">
+        <div class="tag">Industry</div>
+        <h3>Placement-Ready Curriculum</h3>
+        <p>DSA, system design, and interview readiness woven into coursework from year one.</p>
+      </div>
+      <div class="card">
+        <div class="tag">Research</div>
+        <h3>Student-Led Publications</h3>
+        <p>Undergraduate research culminating in real conference papers and fairness-driven civic-tech projects.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="signoff">
+    <span class="name">Sai <span>Shabari</span></span>
+    USN: 4SF23CS182 &nbsp;&middot;&nbsp; Class: 7C<br>
+    Dept. of Computer Science &amp; Engineering
+  </div>
+  <div>
+    <span class="badge">CSE</span>
+    <span class="badge">7C</span>
+  </div>
+</footer>
+
+</body>
+</html>
